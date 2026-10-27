@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Prompt Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-mark">AP</span>
+            <span class="brand-name">Affiliate Prompt Studio</span>
+        </div>
+        <nav class="tabs" role="tablist">
+            <button class="tab" role="tab" data-view="create" aria-selected="true">Buat</button>
+            <button class="tab" role="tab" data-view="history" aria-selected="false">Riwayat <span id="historyCount" class="badge">0</span></button>
+        </nav>
+    </header>
+
+    <main id="view-create" class="container">
+        <section class="card">
+            <h2>Template cepat</h2>
+            <p class="hint">Pilih kategori untuk mengisi pengaturan konten secara otomatis. Semua isian tetap bisa diubah.</p>
+            <div class="chips" id="templates">
+                <button class="chip" data-template="skincare">Skincare</button>
+                <button class="chip" data-template="fashion">Fashion</button>
+                <button class="chip" data-template="gadget">Gadget</button>
+                <button class="chip" data-template="makanan">Makanan</button>
+                <button class="chip" data-template="rumah">Rumah tangga</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="step">1</span> Produk</h2>
+            <div class="grid">
+                <div class="field span-2">
+                    <label for="p_photo">Foto produk <span class="muted">(opsional, hanya untuk preview)</span></label>
+                    <input type="file" id="p_photo" accept="image/*">
+                    <div class="preview" id="p_preview"></div>
+                </div>
+                <div class="field span-2">
+                    <label for="p_name">Nama produk *</label>
+                    <input type="text" id="p_name" placeholder="cth. Jas Hujan Spotlight APD Setelan">
+                </div>
+                <div class="field">
+                    <label for="p_category">Kategori</label>
+                    <select id="p_category">
+                        <option>Skincare &amp; kecantikan</option>
+                        <option>Fashion &amp; aksesoris</option>
+                        <option>Gadget &amp; elektronik</option>
+                        <option>Makanan &amp; minuman</option>
+                        <option>Peralatan rumah tangga</option>
+                        <option>Ibu &amp; bayi</option>
+                        <option>Olahraga &amp; outdoor</option>
+                        <option>Lainnya</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="p_size">Ukuran produk</label>
+                    <select id="p_size">
+                        <option>Kecil (muat di genggaman)</option>
+                        <option>Sedang (dipegang dua tangan)</option>
+                        <option>Besar (diletakkan di lantai/meja)</option>
+                        <option>Dipakai di badan (pakaian/aksesoris)</option>
+                    </select>
+                </div>
+                <div class="field span-2">
+                    <label for="p_details">Detail visual <span class="muted">(warna, bentuk, material, tulisan di label)</span></label>
+                    <textarea id="p_details" rows="2" placeholder="cth. setelan jaket hoodie + celana, warna navy, bahan PVC tebal"></textarea>
+                </div>
+                <div class="field span-2">
+                    <label for="p_points">Poin jualan</label>
+                    <textarea id="p_points" rows="3" placeholder="cth. melindungi dari kepala sampai kaki, anti rembes, sedang viral"></textarea>
+                </div>
+                <div class="field span-2">
+                    <label for="p_promo">Harga / promo <span class="muted">(opsional)</span></label>
+                    <input type="text" id="p_promo" placeholder="cth. harganya cuma sepuluh ribuan">
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="step">2</span> Model</h2>
+            <div class="segmented" role="radiogroup">
+                <label><input type="radio" name="m_mode" value="model" checked> Dengan model</label>
+                <label><input type="radio" name="m_mode" value="product"> Produk saja</label>
+            </div>
+            <div class="grid">
+                <div class="field span-2">
+                    <label for="m_gender" id="m_gender_label">Gender model</label>
+                    <select id="m_gender">
+                        <option>Perempuan</option>
+                        <option>Laki-laki</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid" id="modelFields">
+                <div class="field span-2">
+                    <label for="m_photo">Foto model <span class="muted">(opsional, hanya untuk preview)</span></label>
+                    <input type="file" id="m_photo" accept="image/*">
+                    <div class="preview" id="m_preview"></div>
+                </div>
+                <div class="field span-2">
+                    <label for="m_desc">Catatan model <span class="muted">(opsional)</span></label>
+                    <input type="text" id="m_desc" placeholder="cth. pakai kaos dan jeans, rambut pendek rapi">
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="step">3</span> Konten</h2>
+            <div class="grid">
+                <div class="field">
+                    <label for="k_number">Nomor konten <span class="muted">(untuk nama file)</span></label>
+                    <input type="text" id="k_number" inputmode="numeric" placeholder="cth. 81">
+                </div>
+                <div class="field">
+                    <label for="s_scenes">Jumlah scene</label>
+                    <select id="s_scenes">
+                        <option value="1">1 scene</option>
+                        <option value="2">2 scene</option>
+                        <option value="3" selected>3 scene</option>
+                        <option value="4">4 scene</option>
+                        <option value="5">5 scene</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="s_story">Alur cerita</label>
+                    <select id="s_story">
+                        <option>Problem → solusi → CTA</option>
+                        <option>Review jujur</option>
+                        <option>Unboxing → detail → CTA</option>
+                        <option>Try-on / OOTD</option>
+                        <option>Before → after → CTA</option>
+                        <option>Demo pemakaian</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="s_tone">Tone</label>
+                    <select id="s_tone">
+                        <option>Antusias &amp; heboh</option>
+                        <option>Santai seperti ngobrol</option>
+                        <option>Soft-selling</option>
+                        <option>Hard-selling</option>
+                        <option>Storytelling / curhat</option>
+                        <option>Lucu</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="s_setting">Lokasi utama</label>
+                    <input type="text" id="s_setting" list="settings" placeholder="Pilih atau ketik">
+                    <datalist id="settings">
+                        <option value="Kamar tidur yang rapi dan terang">
+                        <option value="Kamar dengan cermin besar">
+                        <option value="Meja kerja minimalis">
+                        <option value="Dapur rumah yang hangat">
+                        <option value="Ruang tamu rumah">
+                        <option value="Teras rumah saat hujan">
+                        <option value="Kafe estetik">
+                        <option value="Taman outdoor">
+                        <option value="Studio dengan background polos">
+                    </datalist>
+                </div>
+                <div class="field">
+                    <label for="s_cta">Ajakan (CTA) di scene terakhir</label>
+                    <select id="s_cta">
+                        <option>Cek keranjang kuning</option>
+                        <option>Klik link di bio</option>
+                        <option>Buruan checkout sekarang</option>
+                        <option>Tanpa CTA</option>
+                    </select>
+                </div>
+                <div class="field span-2">
+                    <label for="s_extra">Catatan tambahan <span class="muted">(opsional)</span></label>
+                    <textarea id="s_extra" rows="2" placeholder="cth. scene 1 tunjukkan masalah pakai payung tapi celana tetap basah"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><span class="step">4</span> Pengaturan Flow</h2>
+            <p class="hint">Samakan dengan pilihan di Google Flow. Setiap scene akan menampilkan pengaturan ini sebagai panduan.</p>
+            <div class="grid">
+                <div class="field span-2">
+                    <label for="f_mode">Mode video</label>
+                    <select id="f_mode">
+                        <option value="frames">Frames: gambar scene sebagai start frame</option>
+                        <option value="ingredients">Ingredients: foto produk + model sebagai referensi</option>
+                        <option value="text">Text to Video: prompt saja, tanpa gambar</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="f_model">Model</label>
+                    <select id="f_model">
+                        <option>Veo 3.1 - Lite</option>
+                        <option selected>Veo 3.1 - Fast</option>
+                        <option>Veo 3.1 - Quality</option>
+                        <option>Gemini Omni Flash 1.1</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="s_ratio">Aspect ratio</label>
+                    <select id="s_ratio">
+                        <option value="9:16">Portrait 9:16 (TikTok / Reels)</option>
+                        <option value="16:9">Landscape 16:9 (YouTube)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="f_duration">Generation length (per scene)</label>
+                    <select id="f_duration">
+                        <option value="4">4 detik</option>
+                        <option value="6">6 detik</option>
+                        <option value="8" selected>8 detik</option>
+                        <option value="10">10 detik (Omni Flash saja)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="f_outputs">Number of outputs</label>
+                    <select id="f_outputs">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="f_image_tool">Gambar scene dibuat di</label>
+                    <select id="f_image_tool">
+                        <option value="flow">Flow (tab Images)</option>
+                        <option value="chatgpt">ChatGPT</option>
+                        <option value="gemini">Gemini</option>
+                    </select>
+                </div>
+                <div class="field" id="imageModelField">
+                    <label for="f_image_model">Model gambar Flow</label>
+                    <select id="f_image_model">
+                        <option>Nano Banana 2 Lite</option>
+                        <option>Nano Banana 2.1</option>
+                        <option>Nano Banana Pro</option>
+                    </select>
+                </div>
+                <div class="field span-2">
+                    <label for="f_voice">Voice Flow <span class="muted">(opsional, hanya Omni Flash + Ingredients)</span></label>
+                    <input type="text" id="f_voice" placeholder="cth. Andrew">
+                </div>
+            </div>
+            <div class="alert warn" id="flowNotice" hidden></div>
+        </section>
+
+        <section class="card">
+            <label class="check">
+                <input type="checkbox" id="consent">
+                <span>Saya punya izin memakai foto produk dan foto model, dan model berusia 18 tahun ke atas.</span>
+            </label>
+            <div class="alert error" id="formErrors" hidden></div>
+            <div class="actions">
+                <button class="btn primary" id="btnGenerate">Buat Prompt Naskah</button>
+                <button class="btn ghost" id="btnReset">Mulai baru</button>
+            </div>
+        </section>
+
+        <section class="card" id="promptsCard" hidden>
+            <h2><span class="step">5</span> Buat naskah di ChatGPT</h2>
+            <ol class="guide">
+                <li>Buka <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a> dan mulai chat baru.</li>
+                <li id="guideUpload">Unggah <b>foto produk</b> dan <b>foto model</b>, lalu tempel prompt di bawah dan kirim.</li>
+                <li>Salin JSON balasan ChatGPT, lalu tempel di langkah 6.</li>
+            </ol>
+            <div class="prompt-box">
+                <div class="prompt-head">
+                    <h3>Prompt naskah</h3>
+                    <button class="btn small" data-copy="#promptScript">Copy</button>
+                </div>
+                <pre id="promptScript"></pre>
+            </div>
+        </section>
+
+        <section class="card" id="pasteCard">
+            <h2><span class="step">6</span> Tempel JSON dari ChatGPT</h2>
+            <p class="hint">Bisa juga JSON dari sumber lain atau yang disalin dari spreadsheet.</p>
+            <textarea id="pasteArea" rows="8" spellcheck="false" placeholder="Tempel balasan ChatGPT di sini"></textarea>
+            <div class="actions">
+                <button class="btn primary" id="btnProcess">Proses</button>
+            </div>
+            <div class="alert error" id="parseError" hidden></div>
+            <div class="alert info" id="parseInfo" hidden></div>
+            <div class="alert warn" id="parseWarn" hidden></div>
+        </section>
+
+        <section class="card" id="resultCard" hidden>
+            <h2><span class="step">7</span> Gambar &amp; JSON per scene</h2>
+            <div class="project-head">
+                <b id="projectTitle"></b>
+                <small class="muted" id="projectMeta"></small>
+            </div>
+            <ol class="guide" id="resultGuide"></ol>
+            <div class="actions">
+                <button class="btn" data-act="copy-all">Copy semua JSON</button>
+                <button class="btn" data-act="copy-sheet">Copy untuk spreadsheet</button>
+                <button class="btn" data-act="download-all">Download semua gambar</button>
+                <button class="btn primary" id="btnSave">Simpan ke riwayat</button>
+            </div>
+            <div id="sceneList"></div>
+        </section>
+    </main>
+
+    <main id="view-history" class="container" hidden>
+        <section class="card">
+            <h2>Riwayat</h2>
+            <p class="hint">Disimpan di browser ini saja (maks. 30 konten). Gambar disimpan sebagai thumbnail kecil; untuk download ulang, unggah lagi gambar aslinya.</p>
+            <ul class="history" id="historyList"></ul>
+        </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
